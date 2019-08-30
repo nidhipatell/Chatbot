@@ -1,4 +1,4 @@
 # chatbot
-Answers users questions using Wolfram Alpha API
+Answers users questions using  API
 
-I used wolfram alpha api to make a chatbot that answers users questions & the chatbot was created using tkinter.
+I used an api system to make a chatbot that answers users questions & the chatbot was created using tkinter.
