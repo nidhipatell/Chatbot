@@ -22,6 +22,33 @@ def answer(*args):
 
     output.insert(END, ("Chatbot: " + answer + '\n'))
     output.config(font=("Times", 15))
+    
+def answer_listen(text): 
+    output.config(state=NORMAL)
+    output.insert(END, ("User's Question: " + text + '\n'))
+    
+    app_id = "ELVQP7-XW8G556KRV"
+    client = wolframalpha.Client(app_id)
+
+    res = client.query(text)
+    answer = next(res.results).text
+
+    output.insert(END, ("Chatbot: " + answer + '\n'))
+    output.config(font=("Times", 15))
+
+def listen():
+    r = sr.Recognizer()
+    with sr.Microphone() as source:
+        print ("Speak into the mic: ")
+        audio = r.listen(source)
+    
+    try:
+        print("Transcription: " + r.recognize_google(audio))
+        answer_listen(r.recognize_google(audio))
+    except sr.UnknownValueError:
+        print("Audio unintelligible")
+    except sr.RequestError as e:
+        print("Cannot obtain results; {0}".format(e))
 
 # This program is for the main background of the function
 root = Tk() 
@@ -39,7 +66,7 @@ entry = Entry(root, bg='light grey', font=35)
 entry.bind("<Return>", answer)
 entry.grid(row=1, column=0)
 
-button_listen = Button(root, text= "Listen", width = 8, font=20, height=1)
+button_listen = Button(root, text= "Listen", width = 8, font=20, height=1, command=lambda: listen())
 button_listen.grid(row=0, column=1)
 
 # the output system of the code.
