@@ -12,7 +12,7 @@ def answer(*args):
     question = entry.get()
     entry.delete(0, END)
     print (question)
-    output.insert(END, ("User's Question: " + question + '\n'))
+    output.insert(END, ("User: " + question + '\n'))
     
     app_id = "ELVQP7-XW8G556KRV"
     client = wolframalpha.Client(app_id)
@@ -21,11 +21,12 @@ def answer(*args):
     answer = next(res.results).text
 
     output.insert(END, ("Chatbot: " + answer + '\n'))
-    output.config(font=("Times", 15))
+    output.see('end')
+    
     
 def answer_listen(text): 
     output.config(state=NORMAL)
-    output.insert(END, ("User's Question: " + text + '\n'))
+    output.insert(END, ("User: " + text + '\n'))
     
     app_id = "ELVQP7-XW8G556KRV"
     client = wolframalpha.Client(app_id)
@@ -34,7 +35,8 @@ def answer_listen(text):
     answer = next(res.results).text
 
     output.insert(END, ("Chatbot: " + answer + '\n'))
-    output.config(font=("Times", 15))
+    output.see('end')
+    
 
 def listen():
     r = sr.Recognizer()
@@ -53,26 +55,24 @@ def listen():
 # This program is for the main background of the function
 root = Tk() 
 root.title("Chatbot")
-root.geometry('400x400')
+root.geometry('766x590')
 
+scroll = Scrollbar(root, bg='black', troughcolor='light green', width=8)
+scroll.grid(row=0, column=1, sticky=N+S+W+E)
 
-# tells the user to enter the question 
-theLabel = Label(root, text=" Enter your question here:")
-theLabel.config(font=("Times", 17))
-theLabel.grid(row=0, column=0)
-
-
-entry = Entry(root, bg='light grey', font=35)
+entry = Entry(root, bg='black', fg='light green', font=35)
 entry.bind("<Return>", answer)
-entry.grid(row=1, column=0)
+entry.grid(row=1, column=0, sticky=W+E)
 
-button_listen = Button(root, text= "Listen", width = 8, font=20, height=1, command=lambda: listen())
-button_listen.grid(row=0, column=1)
+button_listen = Button(root, text= "Listen", command=lambda: listen())
+button_listen.grid(row=1, column=1)
 
 # the output system of the code.
-output = Text(bg='light grey', height = 20, width= 50)
+output = Text(root, bg='black', fg='light green', height = 35, width= 90, wrap=WORD, yscrollcommand=scroll.set)
 output.config(state=DISABLED)
-output.grid(row=2, column=0)
+output.grid(row=0, column=0)
+
+scroll.config(command=output.yview)
 
 root.mainloop()
 
