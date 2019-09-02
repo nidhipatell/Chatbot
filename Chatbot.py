@@ -64,7 +64,7 @@ entry = Entry(root, bg='black', fg='light green', font=35)
 entry.bind("<Return>", answer)
 entry.grid(row=1, column=0, sticky=W+E)
 
-button_listen = Button(root, text= "Listen", command=lambda: listen())
+button_listen = Button(root, text= "Listen", bg='black', fg='light green', command=lambda: listen())
 button_listen.grid(row=1, column=1)
 
 # the output system of the code.
