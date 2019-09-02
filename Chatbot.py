@@ -11,7 +11,6 @@ def answer(*args):
     output.config(state=NORMAL)
     question = entry.get()
     entry.delete(0, END)
-    print (question)
     output.insert(END, ("User: " + question + '\n'))
     
     app_id = "ELVQP7-XW8G556KRV"
