@@ -13,7 +13,7 @@ def answer(*args):
     entry.delete(0, END)
     output.insert(END, ("User: " + question + '\n'))
     
-    app_id = "ELVQP7-XW8G556KRV"
+    app_id = " * enter your app_id here"
     client = wolframalpha.Client(app_id)
 
     res = client.query(question)
